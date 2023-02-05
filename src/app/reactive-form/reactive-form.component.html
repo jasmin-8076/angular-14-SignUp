@@ -1,0 +1,183 @@
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="display-5">Sign up</h3>
+      </div>
+      <div class="card-body">
+        <form
+          [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()"
+          autocomplete="off"
+        >
+        <div class="mb-3">
+          <label for="FirstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" formControlName="firstName" />
+          <span
+            class="text-danger"
+            *ngIf="
+                (registerFormControl.firstName.touched || submitted) &&
+                registerFormControl.firstName.errors?.['required']"
+          >
+            FirstName is required
+          </span>
+        </div>
+          
+
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" formControlName="lastName" />
+            <span
+              class="text-danger"
+              *ngIf="
+                  (registerFormControl.lastName.touched || submitted) &&
+                  registerFormControl.lastName.errors?.['required']"
+            >
+              Last Name is required
+            </span>
+          </div>
+
+          
+          <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="text" class="form-control" formControlName="email" />
+            <span
+              class="text-danger"
+              *ngIf="
+                  (registerFormControl.email.touched || submitted) &&
+                  registerFormControl.email.errors?.['required']"
+            >
+              Email is required
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="
+                  registerFormControl.email.touched &&
+                  registerFormControl.email.errors?.['email']"
+            >
+              Enter a valid email address
+            </span>
+          </div>
+          
+          <div class="mb-3">
+            <label for="mobNum" class="form-label">Number</label>
+            <input type="number" class="form-control" formControlName="mobNum" />
+            <span
+              class="text-danger"
+              *ngIf="
+                  (registerFormControl.mobNum.touched || submitted) &&
+                  registerFormControl.mobNum.errors?.['required']"
+            >
+              Phone number required
+            </span>
+          </div>
+
+          <div class="mb-3">
+            <label for="Password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password"
+            />
+            <span
+              class="text-danger"
+              *ngIf="
+                  (registerFormControl.password.touched || submitted) &&
+                  registerFormControl.password.errors?.['required']"
+            >
+              Password is required
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="
+                  registerFormControl.password.touched &&
+                  registerFormControl.password.errors?.['invalidPassword']"
+            >
+              Password should have minimum 8 characters, at least 1 uppercase
+              letter, 1 lowercase letter and 1 number
+            </span>
+          </div>
+          <div class="mb-3">
+            <label for="Confirm Password" class="form-label"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              formControlName="confirmPassword"
+            />
+            <span
+              class="text-danger"
+              *ngIf="
+                  (registerFormControl.confirmPassword.touched || submitted) &&
+                  registerFormControl.confirmPassword.errors?.['required']"
+            >
+              Confirm Password is required
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="
+                  registerFormControl.confirmPassword.touched &&
+                  registerFormControl.confirmPassword.errors?.['passwordMismatch']"
+            >
+              Passwords doesnot match
+            </span>
+          </div>
+
+          <div class="mb-3">
+          <label for="gender" class="form-label">Gender</label> &nbsp;
+    
+            <input id="male" type="radio" name="gender" formControlName="gender" value="male"/>
+            <label class="radio-label" for="male"> Male</label> &nbsp;
+            <input id="female" type="radio" name="gender" formControlName="gender" value="female"/>
+            <label class="radio-label" for="female">Female</label>
+        </div>
+
+        <div>   
+           <label>Date of Birth:</label>   
+          <input type="date"  formControlName="dateOfBirth" [max]="getToday()">   
+           <div *ngIf="registerForm.get('dateOfBirth').invalid && registerForm.get('dateOfBirth').touched">      <p *ngIf="registerForm.get('dateOfBirth').errors?.['required']">Date of Birth is required</p>      <p *ngIf="registerForm.get('dateOfBirth').errors?.['invalidDate']">Date of Birth must not be more than 15 years ago</p>    </div>  </div>  <BR>
+
+        <div class="mb-3">
+          <input type="checkbox" id="terms" formControlName="terms" value="agreed" > &nbsp;Agree terms and conditions
+ 
+         </div>
+
+          <div align="right">
+            <button type="submit" [disabled] = "!registerForm.valid" class="btn btn-success">Submit</button>
+            
+          </div>
+        </form>
+       
+      </div>
+
+    </div>
+    <table class="table table-hover">
+
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"  >FirstName</th> 
+          <th scope="col"  >LastName</th> 
+          <th scope="col">Email</th> 
+          <th scope="col">password</th> 
+          <th scope="col">Gender</th>
+          <th scope="col">Mobile</th>
+          <th scope="col">DOB</th>
+        </tr>
+      </thead>
+    <tbody>
+      <tr *ngFor= "let user of userList">
+        <td class="text-center">
+          {{user.firstName}}
+        </td>
+        <td class="text-center">{{ user.lastName }}</td>
+        <td class="text-center">{{user.email}}</td>
+        <td class="text-center">{{user.password}}</td>
+        <td class="text-center">{{user.gender}}</td>
+        <td class="text-center">{{user.mobNum}}</td>
+        <td class="text-center">{{user.dateofbirth}}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
